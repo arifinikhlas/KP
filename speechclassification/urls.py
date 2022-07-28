@@ -27,6 +27,7 @@ urlpatterns = [
     path('audio/', include('audio.urls')),
     path('transcribe/', include('transcribe.urls')),
     path('tugas2/', include('tugas2.urls')),
+    path('tugas3', include('tugas3.urls')),
     path('admin/', admin.site.urls),   
 ]
 

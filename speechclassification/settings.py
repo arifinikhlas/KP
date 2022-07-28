@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'audio.apps.AudioConfig',
     'transcribe.apps.TranscribeConfig',
     'grade.apps.GradeConfig',
+    'tugas3.apps.Tugas3Config',
     'django_extensions',
 ]
 
