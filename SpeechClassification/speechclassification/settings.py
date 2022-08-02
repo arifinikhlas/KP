@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'transcribe.apps.TranscribeConfig',
     'grade.apps.GradeConfig',
     'tugas3.apps.Tugas3Config',
+    'dashboard.apps.DashboardConfig',
     'django_extensions',
 ]
 
