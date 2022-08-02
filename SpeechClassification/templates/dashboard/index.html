@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="text-right">
-                                    <h3 class="my-1"><span data-plugin="counterup">{{ file_count }}</span></h3>
+                                    <h3 class="my-1"><span data-plugin="counterup">10</span></h3>
                                     <p class="text-muted mb-1 text-truncate">Number of User</p>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="text-right">
-                                    <h3 class="my-1"><span data-plugin="counterup">{{ file_count }}</span></h3>
+                                    <h3 class="my-1"><span data-plugin="counterup">10</span></h3>
                                     <p class="text-muted mb-1 text-truncate">Number of Department</p>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="text-right">
-                                    <h3 class="my-1"><span data-plugin="counterup">{{ file_count }}</span></h3>
+                                    <h3 class="my-1"><span data-plugin="counterup">10</span></h3>
                                     <p class="text-muted mb-1 text-truncate">Number of Division</p>
                                 </div>
                             </div>
@@ -97,20 +97,22 @@
             </div>
             <!-- end row -->
             <div class="page-title-box">
-                <h4 class="page-title">Usage Activity</h4>
+                <h4 class="page-title">User Activity</h4>
             </div>
 
             <div class="row">
                 <div class="col-xl-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="header-title mb-5">Active User per User Claimed</h4>
-                            <canvas id="myChart" style="width:100%;max-width:1200px;height:300px"></canvas>
+                    <div class="card" style="height: 400px;">
+                        <div class="card-body" style="height: 400px;">
+                            <h4 class="header-title mb-3">Your Last Week Activity</h4>
+                            <div class="chart-container">
+                                <canvas id="myChart" style="width:100%;max-width:1200px;height:300px"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-4">
-                    <div class="card">
+                    <div class="card" style="height: 400px;">
                         <div class="card-body">
                             <div class="card-widgets">
                                 <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
@@ -130,12 +132,12 @@
                                         </thead>
                                         <tbody>
 
-                                            {% for grade in grade_list %}
+                                            {% for user in user_list %}
                                             <tr>
-                                                <td>{{ grade.File.name}}</td>
-                                                <td>{{ grade.created_at}}</td>
-                                                <td>{{ grade.created_at}}</td>
-                                                <td>{{ grade.total}}</td>
+                                                <td class="text-truncate">{{ user.name }}</td>
+                                                <td class="text-truncate">{{ user.department }}</td>
+                                                <td class="text-truncate">{{ user.division }}</td>
+                                                <td class="text-truncate">{{ user.points }}</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -165,20 +167,37 @@
 
 
 <script>
-    var yValues = [50,60,70,80,200,150,170];
-    var xValues = [1,2,3,4,5,6,7];
+    
+    var yValues = [
+        '{{ daily_list.0.points }}',
+        '{{ daily_list.1.points }}',
+        '{{ daily_list.2.points }}',
+        '{{ daily_list.3.points }}',
+        '{{ daily_list.4.points }}',
+        '{{ daily_list.5.points }}',
+        '{{ daily_list.6.points }}',
+    ];
+    var xValues = [
+        '{{ daily_list.0.pub_date }}',
+        '{{ daily_list.1.pub_date }}',
+        '{{ daily_list.2.pub_date }}',
+        '{{ daily_list.3.pub_date }}',
+        '{{ daily_list.4.pub_date }}',
+        '{{ daily_list.5.pub_date }}',
+        '{{ daily_list.6.pub_date }}'
+    ];
 
     new Chart("myChart", {
     type: "line",
     data: {
         labels: xValues,
         datasets: [{
-        borderColor: 'rgba(255, 255, 255, 0.8)',
+        borderColor: '#4a81d4',
         data: yValues,
-        
         }]
     },
     options:{
+        responsive: true,
         fontColor: 'rgba(255, 255, 255, 0.8)',
         legend: {display: false},
         scales: {
@@ -186,13 +205,13 @@
                 scaleLabel: {
                     display: false,
                     labelString: 'X axis',
-                    fontColor: '#bdbdbd'
+                    fontColor: '#8a8a8a'
                 },
                 gridLines: {
-                    color: '#bdbdbd'
+                    color: '#8a8a8a'
                 },
                 ticks: {
-                  fontColor: "#bdbdbd", // this here
+                  fontColor: "#8a8a8a", // this here
                 },
             }],
             yAxes: [{
@@ -200,13 +219,13 @@
                 scaleLabel: {
                     display: true,
                     labelString: 'Points',
-                    fontColor: '#bdbdbd'
+                    fontColor: '#8a8a8a'
                 },
                 gridLines: {
-                    color: '#bdbdbd'
+                    color: '#8a8a8a'
                 },
                 ticks: {
-                  fontColor: "#bdbdbd", // this here
+                  fontColor: "#8a8a8a", // this here
                 },
             }],
         }
