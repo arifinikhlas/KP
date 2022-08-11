@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            {% include "base_page_title.html" %}
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Edit Meeting</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form method="post" action="{% url 'digitalMeeting:savedit' meeting.id %}">
+                                        {% csrf_token %}
+
+                                        <input type="hidden" id="id" name="id" value="{{ meeting.id }}">
+
+                                        <div class="form-group row">
+                                            <label for="title" class="col-4 col-form-label">Title</label>
+                                            <div class="col-7">
+                                                <input type="text" value="{{ meeting.title }}" name="title"
+                                                    parsley-type="email"
+                                                    class="form-control parsley-success" id="title"
+                                                    placeholder="Title" data-parsley-id="40" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <label for="description" class="col-4 col-form-label">Description</label>
+                                            <div class="col-7">
+                                        
+                                                <textarea class="form-control parsley-success" id="description" rows="3" placeholder="Description" parsley-type="email" name="description" required>{{ meeting.description }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="thumbnail" class="col-4 col-form-label">Thumbnail Link</label>
+                                            <div class="col-7">
+                                                <input type="text" value="{{ meeting.thumbnail }}" name="thumbnail"
+                                                    parsley-type="email"
+                                                    class="form-control parsley-success" id="thumbnail"
+                                                    placeholder="Thumbnail Link" data-parsley-id="40" required>
+                                            </div>
+                                        </div>
+
+                                        <ul class="list-inline wizard mt-3">
+                                            <li class="previous list-inline-item">
+                                                <a href="{% url 'digitalMeeting:index' %}">
+                                                    <button type="button" class="ladda-button btn btn-info"
+                                                        data-style="slide-right"><i
+                                                            class="mdi mdi-backspace-outline"></i> Back
+                                                    </button>
+                                                </a>
+                                            </li>
+
+
+                                            <li class="next list-inline-item">
+
+                                                <button type="button" class="btn btn-success waves-effect waves-light"
+                                                    data-toggle="modal" data-style="slide-right"
+                                                    data-target=".bs-example-modal-center{{meeting.id}}"><i
+                                                        class="mdi mdi-content-save-outline mr-1"></i> Save</button>
+
+                                                <div class="modal fade bs-example-modal-center{{meeting.id}}" tabindex="-1"
+                                                    role="dialog" aria-labelledby="myCenterModalLabel"
+                                                    aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myCenterModalLabel">Are you
+                                                                    sure
+                                                                    to save?</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-hidden="true">×</button>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                    class="btn btn-secondary waves-effect"
+                                                                    data-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success waves-effect waves-light"
+                                                                        data-style="slide-right"><i
+                                                                            class="mdi mdi-delete"></i> Save</button>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
+
+                                            </li>
+
+                                        </ul>
+
+                                    </form>
+                                </div> <!-- end col -->
+
+                            </div>
+                            <!-- end row-->
+
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card -->
+                </div><!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    {% include "base_footer.html" %}
+
+</div>
+
+<!-- ============================================================== -->
+<!-- End Page content -->
+<!-- ============================================================== -->
+
+{% endblock %}

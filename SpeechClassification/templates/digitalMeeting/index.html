@@ -31,10 +31,11 @@
                     </div>
                     <div class="col-7 text-right">
                         <div class="card-body">
-                            <form class="app-search">
+                            <form class="app-search" method="post" action="{% url 'digitalMeeting:search' %}">
+                                {% csrf_token %}
                                 <div class="app-search-box">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <input type="text" class="form-control" name="keyword" placeholder="Search..." value="{{ keyword }}">
                                         <div class="input-group-append">
                                             <button class="btn bg-blue" type="submit">
                                                 <i class="fe-search"></i>
@@ -55,35 +56,50 @@
                     </div>
                 </div>
 
-                {% for meeting in meeting_list %}
+                {% if meeting_list %}
+
+                    {% for meeting in meeting_list %}
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card-body">
+                                <img src="{{ meeting.thumbnail }}" class="img-fluid rounded" alt="thumbnail">
+                            </div> <!-- end card body-->
+                        </div>
+                        <div class="col-6">
+                            <div class="card-body px-0">
+                                <h3 class="card-title mb-1">{{ meeting.title }}</h3>
+                                <p class="card-text mb-3">{{ meeting.pub_date }}</p>
+                                <p class="card-text mb-3">{{ meeting.description }}</p>
+
+                                <a href="{% url 'digitalMeeting:detail' meeting.id %}">
+                                    <button class="btn btn-primary">View meeting</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-2 text-right">
+                            <div class="card-body">
+                                <a href="{% url 'digitalMeeting:edit' meeting.id %}">
+                                    <button class="btn btn-outline-warning">
+                                        <i class="fe-edit-2"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row-->
+
+                    {% endfor %}
+                
+                {% else %}
 
                 <div class="row">
-                    <div class="col-4">
-                        <div class="card-body">
-                            <img src="{{ meeting.thumbnail }}" class="img-fluid rounded" alt="thumbnail">
-                        </div> <!-- end card body-->
-                    </div>
-                    <div class="col-6">
-                        <div class="card-body px-0">
-                            <h3 class="card-title mb-1">{{ meeting.title }}</h3>
-                            <p class="card-text mb-3">{{ meeting.pub_date }}</p>
-                            <p class="card-text mb-3">{{ meeting.description }}</p>
-
-                            <button class="btn btn-primary" value="submit">View</button>
-                            
-                        </div>
-                    </div>
-                    <div class="col-2 text-right">
-                        <div class="card-body">
-                            <button class="btn btn-outline-warning">
-                                <i class="fe-edit-2"></i>
-                            </button>
-                        </div>
+                    <div class="col-12 text-center">
+                        <p class="my-4">No meeting found</p>
                     </div>
                 </div>
-                <!-- end row-->
 
-                {% endfor %}
+                {% endif %}
                 
             </div>
 
