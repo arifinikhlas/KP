@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'grade.apps.GradeConfig',
     'tugas3.apps.Tugas3Config',
     'dashboard.apps.DashboardConfig',
+    'digitalMeeting.apps.DigitalmeetingConfig',
     'django_extensions',
 ]
 

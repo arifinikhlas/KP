@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<!-- Plugins css -->
+<link href="{% static 'libs/dropzone/dropzone.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/dropify/dropify.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            {% include "base_page_title.html" %}
+
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Digital Meeting</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card-body">
+                            <div class="">
+                                <form class="app-search">
+                                    <div class="app-search-box">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search...">
+                                            <div class="input-group-append">
+                                                <button class="btn bg-blue" type="submit">
+                                                    <i class="fe-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> <!-- end card-body-->
+                    </div>
+                </div>
+
+                {% for meeting in meeting_list %}
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card-body">
+                            <img src="{{ meeting.thumbnail }}" class="img-fluid rounded" alt="thumbnail">
+                        </div> <!-- end card body-->
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body px-0">
+                            <h3 class="card-title mb-1">{{ meeting.title }}</h3>
+                            <p class="card-text mb-3">{{ meeting.pub_date }}</p>
+                            <p class="card-text mb-3">{{ meeting.description }}</p>
+
+                            <button class="btn btn-primary" value="submit">View</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row-->
+
+                {% endfor %}
+                
+            </div>
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    {% include "base_footer.html" %}
+
+</div>
+
+<!-- ============================================================== -->
+<!-- End Page content -->
+<!-- ============================================================== -->
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'libs/dropzone/dropzone.min.js' %}"></script>
+<script src="{% static 'libs/dropify/dropify.min.js' %}"></script>
+
+<!-- Init js-->
+<script src="{% static 'js/pages/form-fileuploads.init.js' %}"></script>
+
+<script type="text/javascript">
+
+    $('.custom-file input').change(function (e) {
+        var files = [];
+        for (var i = 0; i < $(this)[0].files.length; i++) {
+            files.push($(this)[0].files[i].name);
+        }
+        $(this).next('.custom-file-label').html(files.join(', '));
+    });
+
+    </script>
+
+{% endblock %}
