@@ -11,6 +11,22 @@ def index(request):
 
     return render(request, 'digitalMeeting/index.html', context)
 
+def create(request):
+    context = {}
+    return render(request, 'digitalMeeting/create.html', context)
+
+def savecreate(request):
+
+    if request.method == 'POST':
+        meeting = Meeting(
+            title = request.POST['title'],
+            description = request.POST['description'],
+            thumbnail = request.POST['thumbnail'],
+            pub_date = timezone.now())
+        meeting.save()
+
+    return redirect('/digitalMeeting')
+
 def edit(request, id):
     meeting = get_object_or_404(Meeting, id=id)
 
@@ -47,3 +63,9 @@ def search(request):
     context = {'meeting_list' : list, 'keyword' : keyword}
 
     return render(request,'digitalMeeting/index.html', context)
+
+def delete(request, id):
+    meeting = get_object_or_404(Meeting, id=id)
+    meeting.delete()
+
+    return redirect('/digitalMeeting')
