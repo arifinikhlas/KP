@@ -21,7 +21,7 @@ def savecreate(request):
         meeting = Meeting(
             title = request.POST['title'],
             description = request.POST['description'],
-            thumbnail = request.POST['thumbnail'],
+            thumbnail = request.FILES['thumbnail'],
             pub_date = timezone.now())
         meeting.save()
 
@@ -39,7 +39,7 @@ def savedit(request, id):
 
     meeting.title = request.POST['title']
     meeting.description = request.POST['description']
-    meeting.thumbnail = request.POST['thumbnail']
+    meeting.thumbnail = request.FILES['thumbnail']
     meeting.pub_date = timezone.now()
     # file.location = request.POST['location']
     meeting.save()

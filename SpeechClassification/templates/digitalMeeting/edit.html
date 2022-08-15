@@ -22,7 +22,7 @@
                             <h4 class="card-title mb-3">Edit Meeting</h4>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form method="post" action="{% url 'digitalMeeting:savedit' meeting.id %}">
+                                    <form method="post" action="{% url 'digitalMeeting:savedit' meeting.id %}" enctype='multipart/form-data'>
                                         {% csrf_token %}
 
                                         <input type="hidden" id="id" name="id" value="{{ meeting.id }}">
@@ -46,12 +46,10 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="thumbnail" class="col-4 col-form-label">Thumbnail Link</label>
+                                            <label for="thumbnail" class="col-4 col-form-label">Thumbnail</label>
                                             <div class="col-7">
-                                                <input type="text" value="{{ meeting.thumbnail }}" name="thumbnail"
-                                                    parsley-type="email"
-                                                    class="form-control parsley-success" id="thumbnail"
-                                                    placeholder="Thumbnail Link" data-parsley-id="40" required>
+                                                <input type="file" name="thumbnail" parsley-type="email"
+                                                class="parsley-success" id="thumbnail" required>
                                             </div>
                                         </div>
 
